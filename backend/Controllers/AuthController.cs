@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HrETracker.Controllers;
 
 [ApiController]
-[Route("api/v1/auth")]
+[Route("api/auth")]
 public class AuthController(IAuthService authService) : ControllerBase
 {
     [AllowAnonymous]

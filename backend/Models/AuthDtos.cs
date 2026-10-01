@@ -20,7 +20,7 @@ public class JwtSettings
 
 public class InitialAdminSettings
 {
-    public string Email { get; init; } = string.Empty;
-    public string Password { get; init; } = string.Empty;
-    public string FullName { get; init; } = string.Empty;
+    public string Email { get; init; } = "admin@mail.com";
+    public string Password { get; init; } = "Lear123456@";
+    public string FullName { get; init; } = "HR Administrator";
 }

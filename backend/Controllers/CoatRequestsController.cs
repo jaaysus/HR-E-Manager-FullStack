@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HrETracker.Controllers;
 
 [ApiController, Authorize(Roles = "HrAdministrator,InventoryManager,Viewer")]
-[Route("api/v1/coat-requests")]
+[Route("api/coat-requests")]
 public class CoatRequestsController(IRequestCycleService requestCycleService) : ControllerBase
 {
     [HttpGet]

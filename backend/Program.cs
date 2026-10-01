@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+LoadLocalEnvironmentFile(builder.Configuration, Path.Combine(builder.Environment.ContentRootPath, ".env"));
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Services.AddDataProtection()
@@ -19,7 +20,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<HrETrackerDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
 {
-    options.Password.RequiredLength = 12;
+    options.Password.RequiredLength = 8;
     options.Password.RequireDigit = true;
     options.Password.RequireUppercase = true;
     options.User.RequireUniqueEmail = true;
@@ -71,5 +72,28 @@ app.UseAuthorization();
 app.MapHealthChecks("/health");
 app.MapControllers();
 app.Run();
+
+static void LoadLocalEnvironmentFile(ConfigurationManager configuration, string filePath)
+{
+    if (!File.Exists(filePath))
+        return;
+
+    foreach (var line in File.ReadLines(filePath))
+    {
+        var trimmedLine = line.Trim();
+        if (string.IsNullOrWhiteSpace(trimmedLine) || trimmedLine.StartsWith('#'))
+            continue;
+
+        var separatorIndex = trimmedLine.IndexOf('=');
+        if (separatorIndex <= 0)
+            continue;
+
+        var key = trimmedLine[..separatorIndex].Trim().Replace("__", ":");
+        var value = trimmedLine[(separatorIndex + 1)..].Trim();
+
+        if (string.IsNullOrWhiteSpace(configuration[key]))
+            configuration[key] = value;
+    }
+}
 
 public partial class Program;

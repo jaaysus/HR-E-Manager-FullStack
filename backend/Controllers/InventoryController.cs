@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HrETracker.Controllers;
 
 [ApiController, Authorize(Roles = "HrAdministrator,InventoryManager,Viewer")]
-[Route("api/v1/inventory")]
+[Route("api/inventory")]
 public class InventoryController(IInventoryService inventoryService) : ControllerBase
 {
     [HttpGet("items")]

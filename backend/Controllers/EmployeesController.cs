@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HrETracker.Controllers;
 
 [ApiController]
-[Route("api/v1/employees")]
+[Route("api/employees")]
 [Authorize(Roles = "HrAdministrator,InventoryManager,Viewer")]
 public class EmployeesController(IEmployeeService employeeService) : ControllerBase
 {
