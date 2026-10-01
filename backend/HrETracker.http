@@ -1,0 +1,6 @@
+@HrETracker_HostAddress = http://localhost:5188
+
+GET {{HrETracker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
