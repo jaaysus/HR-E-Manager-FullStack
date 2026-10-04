@@ -1,28 +1,19 @@
 namespace HrETracker.Services;
-
-public class RequestCycleWorker(IServiceScopeFactory scopeFactory, ILogger<RequestCycleWorker> logger) : BackgroundService
+public class RequestCycleWorker(IServiceScopeFactory scopes, ILogger<RequestCycleWorker> logger, TimeProvider clock) : BackgroundService
 {
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken ct)
     {
-        await RunCycleAsync(stoppingToken);
-        using var timer = new PeriodicTimer(TimeSpan.FromHours(12));
-        while (await timer.WaitForNextTickAsync(stoppingToken))
-            await RunCycleAsync(stoppingToken);
-    }
-
-    private async Task RunCycleAsync(CancellationToken cancellationToken)
-    {
-        try
+        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(10), clock);
+        do
         {
-            using var scope = scopeFactory.CreateScope();
-            var service = scope.ServiceProvider.GetRequiredService<IRequestCycleService>();
-            var created = await service.CreateDueRequestsAsync(cancellationToken);
-            logger.LogInformation("Due coat request cycle completed; {CreatedCount} request(s) created.", created);
-        }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { }
-        catch (Exception exception)
-        {
-            logger.LogError(exception, "Due coat request cycle failed.");
-        }
+            try
+            {
+                using var scope = scopes.CreateScope();
+                var created = await scope.ServiceProvider.GetRequiredService<IRequestCycleService>().CreateDueRequestsAsync(ct);
+                logger.LogInformation("Due coat request cycle completed; {Count} request(s) created.", created);
+            }
+            catch (OperationCanceledException) when (ct.IsCancellationRequested) { break; }
+            catch (Exception ex) { logger.LogError(ex, "Due coat request cycle failed; retrying in ten seconds."); }
+        } while (await timer.WaitForNextTickAsync(ct));
     }
 }

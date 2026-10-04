@@ -1,6 +1,93 @@
 @HrETracker_HostAddress = http://localhost:5188
 
-GET {{HrETracker_HostAddress}}/weatherforecast/
+GET {{HrETracker_HostAddress}}/health
 Accept: application/json
 
 ###
+
+# Supply credentials and tokens locally; do not commit them to this file.
+POST {{HrETracker_HostAddress}}/api/auth/login
+X-HR-Auth: 1
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+###
+GET {{HrETracker_HostAddress}}/api/auth/me
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{HrETracker_HostAddress}}/api/auth/refresh
+X-HR-Auth: 1
+# The HTTP client must retain the HttpOnly cookie returned by login.
+
+###
+GET {{HrETracker_HostAddress}}/api/users?page=1&pageSize=50
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{HrETracker_HostAddress}}/api/auth/logout
+X-HR-Auth: 1
+Authorization: Bearer {{accessToken}}
+
+###
+GET {{HrETracker_HostAddress}}/api/departments
+Authorization: Bearer {{accessToken}}
+
+###
+GET {{HrETracker_HostAddress}}/api/employees?status=active&page=1&pageSize=25
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{HrETracker_HostAddress}}/api/employees
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "employeeNumber": "EMP-100",
+  "fullName": "Example Employee",
+  "departmentId": "10000000-0000-0000-0000-000000000001",
+  "enrollmentDate": "2026-10-02"
+}
+
+###
+PATCH {{HrETracker_HostAddress}}/api/employees/{{employeeId}}/active
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "isActive": false,
+  "rowVersion": "{{employeeRowVersion}}"
+}
+
+###
+GET {{HrETracker_HostAddress}}/api/dashboard?year=2026
+Authorization: Bearer {{accessToken}}
+
+###
+GET {{HrETracker_HostAddress}}/api/employee-imports?page=1&pageSize=25
+Authorization: Bearer {{accessToken}}
+
+###
+# Upload a local CSV/XLSX/XLS file (replace importFilePath with its absolute path).
+POST {{HrETracker_HostAddress}}/api/employee-imports
+Authorization: Bearer {{accessToken}}
+Content-Type: multipart/form-data; boundary=EmployeeImportBoundary
+
+--EmployeeImportBoundary
+Content-Disposition: form-data; name="file"; filename="employees.csv"
+Content-Type: text/csv
+
+< {{importFilePath}}
+--EmployeeImportBoundary--
+
+###
+GET {{HrETracker_HostAddress}}/api/employee-imports/{{importBatchId}}?page=1&pageSize=100
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{HrETracker_HostAddress}}/api/employee-imports/{{importBatchId}}/commit
+Authorization: Bearer {{accessToken}}

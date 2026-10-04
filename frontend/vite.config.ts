@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
-import siteConfiguration from '../.figma/make/site.json'
+import siteConfiguration from '../.figma/make/site.json' with { type: 'json' }
 
 // Vite config — https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
   const emitSourcemaps = mode === 'development'
 
   return {
-    root: __dirname,
+    root: import.meta.dirname,
     base: process.env.FIGMA_PUBLIC_URL ? `${process.env.FIGMA_PUBLIC_URL}/` : '/',
     build: {
       sourcemap: emitSourcemaps ? 'inline' : false,
@@ -27,13 +27,16 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(import.meta.dirname, './src'),
       },
     },
     server: {
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
       port: parseInt(process.env.PORT || '8443'),
       strictPort: true,
+      proxy: {
+        '/api': { target: process.env.API_PROXY_TARGET || 'http://localhost:5188', changeOrigin: true },
+      },
       watch: {
         ignored: [
           '**/.figma/**',

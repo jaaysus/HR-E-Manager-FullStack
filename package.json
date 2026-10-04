@@ -8,6 +8,7 @@
     "build": "npm --prefix frontend run build --",
     "preview": "npm --prefix frontend run preview --",
     "format": "npm --prefix frontend run format --",
-    "typecheck": "npm --prefix frontend run typecheck"
+    "typecheck": "npm --prefix frontend run typecheck",
+    "test": "npm --prefix frontend run test"
   }
 }

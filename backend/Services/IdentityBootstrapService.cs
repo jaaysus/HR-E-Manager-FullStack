@@ -8,8 +8,6 @@ namespace HrETracker.Services;
 
 public class IdentityBootstrapService(IServiceScopeFactory scopeFactory, IConfiguration configuration, IHostEnvironment environment, ILogger<IdentityBootstrapService> logger) : IHostedService
 {
-    private static readonly string[] Roles = ["HrAdministrator", "InventoryManager", "Viewer"];
-
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         try
@@ -19,9 +17,21 @@ public class IdentityBootstrapService(IServiceScopeFactory scopeFactory, IConfig
             var email = string.IsNullOrWhiteSpace(admin.Email) ? defaults.Email : admin.Email.Trim();
             var password = string.IsNullOrWhiteSpace(admin.Password) ? defaults.Password : admin.Password;
             var fullName = string.IsNullOrWhiteSpace(admin.FullName) ? defaults.FullName : admin.FullName;
+            if (string.IsNullOrWhiteSpace(email))
+                throw new InvalidOperationException("InitialAdmin:Email must be configured through user secrets or an environment variable.");
             var connectionFingerprint = Convert.ToHexString(SHA256.HashData(
                 Encoding.UTF8.GetBytes(configuration.GetConnectionString("DefaultConnection") ?? string.Empty)));
             var statePath = Path.Combine(environment.ContentRootPath, "identity-bootstrap.json");
+            // Role definitions must be reconciled even when administrator bootstrap is cached.
+            using var scope = scopeFactory.CreateScope();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            foreach (var role in AccessPolicies.Roles)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (!await roleManager.RoleExistsAsync(role))
+                    EnsureSucceeded(await roleManager.CreateAsync(new IdentityRole(role)), $"create role '{role}'");
+            }
             if (File.Exists(statePath))
             {
                 BootstrapState? state = null;
@@ -39,27 +49,21 @@ public class IdentityBootstrapService(IServiceScopeFactory scopeFactory, IConfig
                     && string.Equals(state.Email, email, StringComparison.OrdinalIgnoreCase)
                     && state.ConnectionFingerprint == connectionFingerprint)
                 {
-                    logger.LogInformation("Initial administrator {Email} already exists; skipping bootstrap queries.", email);
+                    logger.LogInformation("Initial administrator {Email} already exists; roles reconciled and administrator lookup skipped.", email);
                     return;
                 }
-            }
-
-            using var scope = scopeFactory.CreateScope();
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            foreach (var role in Roles)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                if (!await roleManager.RoleExistsAsync(role))
-                    EnsureSucceeded(await roleManager.CreateAsync(new IdentityRole(role)), $"create role '{role}'");
             }
 
             var user = await userManager.FindByEmailAsync(email);
             if (user is null)
             {
+                if (string.IsNullOrWhiteSpace(password))
+                    throw new InvalidOperationException("InitialAdmin:Password must be configured to create the initial administrator.");
                 user = new ApplicationUser { UserName = email, Email = email, FullName = fullName };
                 EnsureSucceeded(await userManager.CreateAsync(user, password), "create initial administrator");
             }
+            if (!user.IsActive)
+                throw new InvalidOperationException("The configured initial administrator is disabled. Configure an active administrator.");
 
             if (!await userManager.IsInRoleAsync(user, "HrAdministrator"))
                 EnsureSucceeded(await userManager.AddToRoleAsync(user, "HrAdministrator"), "assign administrator role");

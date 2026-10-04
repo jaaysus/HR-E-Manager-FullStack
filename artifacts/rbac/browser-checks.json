@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "HrAdministrator: scoped settings, separate saves, department/variant controls and minute eligibility, account preferences, and sidebar scrolling; no JavaScript errors",
+    "Viewer: scoped settings, separate saves, department/variant controls and minute eligibility, account preferences, and sidebar scrolling; no JavaScript errors",
+    "ClothingViewer: scoped settings, separate saves, department/variant controls and minute eligibility, account preferences, and sidebar scrolling; no JavaScript errors",
+    "ClothingManager: scoped settings, separate saves, department/variant controls and minute eligibility, account preferences, and sidebar scrolling; no JavaScript errors",
+    "CombinedRoles: scoped settings, separate saves, department/variant controls and minute eligibility, account preferences, and sidebar scrolling; no JavaScript errors"
+  ],
+  "api": "Role fixtures; actual authorization covered by backend integration tests"
+}

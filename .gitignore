@@ -5,6 +5,9 @@ build/
 .cache/
 .env*
 !/backend/.env.example
+!/frontend/.env.example
+!/BUILDPLAN.md
+!/backend/README.md
 .vite/
 vite.config.*.timestamp-*
 *.tsbuildinfo
@@ -35,3 +38,10 @@ logs/
 
 # Local ASP.NET Core data-protection keys.
 /backend/DataProtectionKeys/
+
+# Local administrator bootstrap state; regenerate after resetting the database.
+/backend/identity-bootstrap.json
+/backend/identity-bootstrap.json.tmp
+
+# Disposable copy of the external demo used by the browser comparison.
+/artifacts/demo-comparison/reference/

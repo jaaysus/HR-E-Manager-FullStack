@@ -1,0 +1,24 @@
+{
+  "companyName": "Lear Corporation",
+  "displayName": "Lear",
+  "applicationName": "HR E-Tracker",
+  "version": "2.4",
+  "pageTitle": "Lear | HR E-Tracker",
+  "logo": {
+    "text": "LEAR",
+    "imageUrl": "",
+    "lightImageUrl": "",
+    "trademark": "®",
+    "color": "#005daa",
+    "lightColor": "#ffffff",
+    "italic": true,
+    "letterSpacing": "-0.09em"
+  },
+  "theme": {
+    "primary": "#2563eb",
+    "primaryHover": "#1d4ed8",
+    "sidebar": "#1e293b",
+    "bodyFont": "Inter, sans-serif",
+    "displayFont": "Outfit, sans-serif"
+  }
+}

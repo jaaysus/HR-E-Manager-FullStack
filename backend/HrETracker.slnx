@@ -1,3 +1,6 @@
 <Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/HrETracker.Api.Tests/HrETracker.Api.Tests.csproj" />
+  </Folder>
   <Project Path="HrETracker.csproj" />
 </Solution>

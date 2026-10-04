@@ -1,0 +1,360 @@
+{
+  "businessDate": "2026-10-04",
+  "data": "Identical demo fixtures; API responses mocked only for this visual comparison.",
+  "results": [
+    {
+      "screen": "dashboard",
+      "before": {
+        "heading": "Dashboard",
+        "tableHeaders": [],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 1156,
+            "height": 165
+          },
+          {
+            "x": 252,
+            "y": 305.5,
+            "width": 1156,
+            "height": 462
+          },
+          {
+            "x": 252,
+            "y": 791.5,
+            "width": 1156,
+            "height": 131.5
+          }
+        ]
+      },
+      "after": {
+        "heading": "Dashboard",
+        "tableHeaders": [],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 1156,
+            "height": 165
+          },
+          {
+            "x": 252,
+            "y": 305.5,
+            "width": 1156,
+            "height": 462
+          },
+          {
+            "x": 252,
+            "y": 791.5,
+            "width": 1156,
+            "height": 131.5
+          }
+        ]
+      },
+      "tableHeadersMatch": true,
+      "layoutMatches": true
+    },
+    {
+      "screen": "employees",
+      "before": {
+        "heading": "Employees",
+        "tableHeaders": [
+          "Employee ID",
+          "Full Name",
+          "Department",
+          "Enrollment Date",
+          "Months",
+          "Coat Status",
+          "Eligibility",
+          ""
+        ],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 1156,
+            "height": 38.25
+          },
+          {
+            "x": 252,
+            "y": 174.75,
+            "width": 1156,
+            "height": 813.25
+          }
+        ]
+      },
+      "after": {
+        "heading": "Employees",
+        "tableHeaders": [
+          "Employee ID",
+          "Full Name",
+          "Department",
+          "Enrollment Date",
+          "Months",
+          "Coat Status",
+          "Eligibility",
+          ""
+        ],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 1156,
+            "height": 38.25
+          },
+          {
+            "x": 252,
+            "y": 174.75,
+            "width": 1156,
+            "height": 813.25
+          }
+        ]
+      },
+      "tableHeadersMatch": true,
+      "layoutMatches": true
+    },
+    {
+      "screen": "inventory",
+      "before": {
+        "heading": "Inventory Management",
+        "tableHeaders": [
+          "Date",
+          "Coat Variant",
+          "Type",
+          "Quantity",
+          "Note"
+        ],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 1156,
+            "height": 371.5
+          },
+          {
+            "x": 252,
+            "y": 512,
+            "width": 1156,
+            "height": 362.25
+          },
+          {
+            "x": 252,
+            "y": 898.25,
+            "width": 1156,
+            "height": 416.25
+          }
+        ]
+      },
+      "after": {
+        "heading": "Inventory Management",
+        "tableHeaders": [
+          "Date",
+          "Coat Variant",
+          "Type",
+          "Quantity",
+          "Note"
+        ],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 1156,
+            "height": 371.5
+          },
+          {
+            "x": 252,
+            "y": 512,
+            "width": 1156,
+            "height": 362.25
+          },
+          {
+            "x": 252,
+            "y": 898.25,
+            "width": 1156,
+            "height": 416.25
+          }
+        ]
+      },
+      "tableHeadersMatch": true,
+      "layoutMatches": true
+    },
+    {
+      "screen": "requests",
+      "before": {
+        "heading": "Coat Requests",
+        "tableHeaders": [
+          "Employee",
+          "Required Coat",
+          "Enrollment Date",
+          "Months",
+          "Status",
+          "Action"
+        ],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 1156,
+            "height": 119.5
+          },
+          {
+            "x": 252,
+            "y": 256,
+            "width": 1156,
+            "height": 1043.5
+          }
+        ]
+      },
+      "after": {
+        "heading": "Coat Requests",
+        "tableHeaders": [
+          "Employee",
+          "Required Coat",
+          "Enrollment Date",
+          "Months",
+          "Status",
+          "Action"
+        ],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 1156,
+            "height": 119.5
+          },
+          {
+            "x": 252,
+            "y": 256,
+            "width": 1156,
+            "height": 1043.5
+          }
+        ]
+      },
+      "tableHeadersMatch": true,
+      "layoutMatches": true
+    },
+    {
+      "screen": "notifications",
+      "before": {
+        "heading": "Notifications",
+        "tableHeaders": [],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 696,
+            "height": 19.5
+          },
+          {
+            "x": 252,
+            "y": 156,
+            "width": 696,
+            "height": 502
+          }
+        ]
+      },
+      "after": {
+        "heading": "Notifications",
+        "tableHeaders": [],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 696,
+            "height": 19.5
+          },
+          {
+            "x": 252,
+            "y": 156,
+            "width": 696,
+            "height": 502
+          }
+        ]
+      },
+      "tableHeadersMatch": true,
+      "layoutMatches": true
+    },
+    {
+      "screen": "import",
+      "before": {
+        "heading": "Import from Excel",
+        "tableHeaders": [
+          "Column",
+          "Maps To",
+          "Required",
+          "Example"
+        ],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 736,
+            "height": 311
+          },
+          {
+            "x": 252,
+            "y": 451.5,
+            "width": 736,
+            "height": 340.25
+          }
+        ]
+      },
+      "after": {
+        "heading": "Import from Excel",
+        "tableHeaders": [
+          "Column",
+          "Maps To",
+          "Required",
+          "Example"
+        ],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 736,
+            "height": 311
+          },
+          {
+            "x": 252,
+            "y": 451.5,
+            "width": 736,
+            "height": 340.25
+          }
+        ]
+      },
+      "tableHeadersMatch": true,
+      "layoutMatches": true
+    },
+    {
+      "screen": "add-employee",
+      "before": {
+        "heading": "Add Employee",
+        "tableHeaders": [],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 576,
+            "height": 578.5
+          }
+        ]
+      },
+      "after": {
+        "heading": "Add Employee",
+        "tableHeaders": [],
+        "boxes": [
+          {
+            "x": 252,
+            "y": 116.5,
+            "width": 576,
+            "height": 578.5
+          }
+        ]
+      },
+      "tableHeadersMatch": true,
+      "layoutMatches": true
+    }
+  ],
+  "errors": []
+}

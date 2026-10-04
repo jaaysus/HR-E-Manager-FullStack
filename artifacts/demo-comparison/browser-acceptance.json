@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Sign-in lands on the demo dashboard with activity, quick actions, chart, and status overview.",
+    "Employee create/edit, editable ID, department search, eligibility, and coat-status columns work.",
+    "Stock arrival uses its selected date; variant balances and combined ledger refresh.",
+    "Provision consumes one coat and updates requests, employee status, and status filtering.",
+    "Named allocation notifications and per-user read state survive reload.",
+    "Real CSV upload, preview with job title, and confirmed import create persistent employees.",
+    "Account name, company, and notification settings persist after reload.",
+    "No browser JavaScript errors."
+  ],
+  "javascriptErrors": [],
+  "cleanup": "Test employees deactivated; account/settings and variant stock restored."
+}
